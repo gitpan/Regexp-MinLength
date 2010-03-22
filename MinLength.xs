@@ -27,7 +27,7 @@ MinLength(rv)
 	ptr = SvPV_nolen(ST(0));
 	len = strlen(ptr);
 
-	re = pregcomp(ptr, ptr + len, pm);
+	re = pregcomp(rv,0);
 	if (!re) {
 		croak("Cannot compile regexp");
 	}

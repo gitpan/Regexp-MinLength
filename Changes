@@ -1,5 +1,9 @@
 Revision history for Perl extension Regexp::MinLength.
 
+0.02  Sun Mar 18 20:11:00 2010
+	- updated to work for perl 5.10.  The arguments for pregcomp have 
+	  changed, and we now require perl 5.10.
+
 0.01  Thu Nov  6 20:00:13 2008
 	- original version; created by h2xs 1.23 
 
