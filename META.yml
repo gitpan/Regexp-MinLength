@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Regexp-MinLength
-version:            0.02
+version:            0.03
 abstract:           Perl extension for determining the minimum matching length for a regular expression
 author:
     - Leigh  Metcalf <leigh@fprime.net>

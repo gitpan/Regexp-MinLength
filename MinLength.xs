@@ -4,35 +4,45 @@
 #define NEED_sv_2pv_nolen
 #include "ppport.h"
 
+#include "regcomp.h"
 #include "const-c.inc"
+#if (PERL_VERSION < 11)
+#define RETURNVALUE re->minlen
+#else
+#define RETURNVALUE re->sv_any->minlen
+#endif
 
 MODULE = Regexp::MinLength		PACKAGE = Regexp::MinLength	PREFIX = Regexp::MinLength_
 
 INCLUDE: const-xs.inc
+PROTOTYPES: DISABLE
 
 int
 MinLength(rv)
 	SV *rv;
 	
 	PREINIT:
+	const SV * const pattern = rv;
 	char *ptr;
-	regexp *re=0;
+#if (PERL_VERSION < 11)
+	regexp *re;
+#else
+	REGEXP *re;
+#endif
 	int ret;
 	int len;
 	PMOP *pm;
+	U32 flags;
 
 
 	CODE:
-	New(1, pm, 1, PMOP);
-	ptr = SvPV_nolen(ST(0));
-	len = strlen(ptr);
 
 	re = pregcomp(rv,0);
 	if (!re) {
 		croak("Cannot compile regexp");
 	}
 
-	ret = re->minlen;
+	ret = RETURNVALUE;
 
 	RETVAL = ret;
 	OUTPUT:
